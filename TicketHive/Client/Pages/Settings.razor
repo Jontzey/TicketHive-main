@@ -1,0 +1,47 @@
+﻿@page "/settings/{id}"
+@using Microsoft.AspNetCore.Authorization;
+@using TicketHive.Client.Managers;
+@using TicketHive.Client.Services
+@using System.ComponentModel.DataAnnotations;
+@using TicketHive.Server.Enums;
+@inject IUserService _service
+@inject NavigationManager _navigation
+@attribute [Authorize]
+
+<div class="row">
+    <h4><i class="fa-solid fa-user-gear me-3"></i>Settings:</h4>
+    <p>Update your country of origing or set a new password</p>
+<hr class="my-3"/>
+    <form @onsubmit="UpdateCountryOfOrigin">
+        <div>
+            <label for="country">Country of origin:</label>
+            <select id="country" @bind="Country">
+                @foreach (var country in Enum.GetNames(typeof(Country)))
+                {
+                    <option value="@country">@StringHelper.ReplaceUnderScoreWithSpace(country)</option>
+                }
+            </select>
+
+            <button class="ms-2 btn btn-outline-success" type="submit">Update country of origin</button>
+        </div>
+        <span class="text-warning my-1">@(ValidationErrors.TryGetValue("sameSelection", out var sameSelectionError) ? sameSelectionError : "")</span>
+        <span class="text-warning my-1">@(ValidationErrors.TryGetValue("noSelection", out var noSelectionError) ? noSelectionError : "")</span>
+        <span class="text-warning my-1">@StringHelper.ReplaceUnderScoreWithSpace(SuccessMessageCountry!)</span>
+    </form>
+
+    <hr class ="my-3" />
+
+    <form @onsubmit="UpdatePassword">
+        <p>Select a new password:</p>
+
+        <input type="password" placeholder="Current password" @bind="CurrentPassword" />
+        <input type="password" placeholder="New password" @bind="NewPassword" />
+        <button class="ms-2 btn btn-outline-success" type="submit">Update password</button>
+    </form>
+    <span class="text-warning">@(ValidationErrors.TryGetValue("noInput", out var noInputError) ? noInputError : "")</span>
+    <span class="text-warning my-1">@SuccessMessagePassword</span>
+
+    <hr class="my-3" />
+
+    <button class="btn btn-outline-warning" @onclick="BackToMain" style="width:12rem;"><i class="fa-solid fa-house-chimney me-2"</i></button>
+</div>

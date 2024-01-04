@@ -1,0 +1,88 @@
+﻿@page "/admin"
+@using Microsoft.AspNetCore.Authorization;
+@using TicketHive.Client.Services
+@using TicketHive.Shared.Enums;
+@using TicketHive.Shared.Models;
+@attribute [Authorize(Roles = "Admin")]
+@inject IEventService eventService
+
+<div class="container overflow-scroll overflow-hidden" style="max-height:100% !important; max-width:100% !important;">
+    <div class="row">
+        <div class="col-12">
+            <h1>ADMIN PAGE</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 " >
+            <EditForm Model="@newEvent"  OnValidSubmit="@AddEvent" >
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="mt-2form-group">
+                    <label for="name">Name:</label>
+                    <InputText id="name" class="form-control form-control-lg" @bind-Value="newEvent.Name" />
+                </div>
+
+                <div class="mt-2 form-group">
+                    <label for="eventType">Event Type:</label>
+                    <InputSelect id="eventType" class="form-control form-control-lg" @bind-Value="newEvent.EventType">
+                        @foreach (var type in Enum.GetValues(typeof(EventType)))
+                        {
+                            <option value="@type">@type</option>
+                        }
+                    </InputSelect>
+                </div>
+
+                <div class="mt-2 form-group">
+                    <label for="numberOfTickets">Number of Tickets:</label>
+                    <InputNumber id="numberOfTickets" class="form-control form-control-lg" min="1" @bind-Value="newEvent.NumberOfTickets" />
+                </div>
+
+                <div class="mt-2 form-group">
+                    <label for="description">Description:</label>
+                    <InputTextArea id="description" class="form-control form-control-lg" @bind-Value="newEvent.Description" />
+                </div>
+
+                <div class="mt-2 form-group">
+                    <label for="price">Price:</label>
+                    <InputNumber id="price" class="form-control form-control-lg" min="1" @bind-Value="newEvent.Price" />
+                </div>
+
+                <div class="mt-2 form-group">
+                    <label for="startTime">Start date:</label>
+                    <InputDate id="start-date" class="form-control form-control-lg" @bind-Value="newEvent.StartTime" />
+                </div>
+
+                <div class="mt-2 form-group">
+                    <label class="me-1" for="start-time-clock">Starts at:</label><input id="start-time-clock" type="time" @bind-value="StartHoursAndMinutes"/>
+                </div>
+
+                <div class="mt-2 form-group">
+                    <label for="endTime">End date:</label>
+                    <InputDate id="endTime" class="form-control form-control-lg" @bind-Value="newEvent.EndTime" />
+                </div>
+
+                <div class="mt-2 form-group">
+                    <label class="me-1" for="end-time-clock">Ends at:</label><input id="start-time-clock" type="time" @bind-value="EndHoursAndMinutes" />
+                </div>
+
+                <div class="mt-2 form-group">
+                    <label for="location">Location:</label>
+                    <InputText id="location" class="form-control form-control-lg" @bind-Value="newEvent.Location" />
+                </div>
+
+                <div class="mt-2 form-group">
+                    <label for="host">Host:</label>
+                    <InputText id="host" class="form-control form-control-lg" @bind-Value="newEvent.Host" />
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Add event</button>
+                @*Add space between button and h4*@
+                <div class="mt-2"></div>
+
+                <h4 class="text-warning">@ResponseMessage</h4>
+            </EditForm>
+        </div>
+    </div>
+</div>

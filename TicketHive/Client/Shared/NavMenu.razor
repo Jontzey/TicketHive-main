@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using TicketHive.Client.Services;
+@inject NavigationManager _navigation
+@inject AuthenticationStateProvider authenticationStateProvider
+@inject IUserService _service
+@attribute [Authorize(Roles = "Admin")]
+
+<div class="top-row ps-3 navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand TicketHiveYellow" href=""><img class="theImage mx-3" src="images/logos/yellow only logo.png" alt="Image-error"> TicketHive</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" Match="NavLinkMatch.All">
+                <button class="btn text-decoration-none TicketHiveYellow" @onclick="NavigateToHome"><i class="fa-solid fa-house-chimney me-2"</i>Home</button>
+            </NavLink>
+        </div>
+        <AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link">
+                        <button class="btn text-decoration-none TicketHiveYellow" @onclick="NavigateToAllEvents"><i class="fa-solid fa-ticket me-2"></i>Events</button>
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link">
+                        <button class="btn text-decoration-none TicketHiveYellow" @onclick="NavigateToShoppingCart"><i class="fa-solid fa-cart-shopping me-2"></i>Shopping cart</button>
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink title="My settings" class="nav-link">
+                        <button class="btn text-decoration-none TicketHiveYellow" @onclick="NavigateToSettings"><i class="fa-solid fa-gears me-3"></i>Settings</button>
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" title="Log out">
+                        <button class="btn text-decorationd-lg-none TicketHiveYellow" @onclick="BeginLogOut"><i class="fa-solid fa-right-from-bracket me-3"></i>Log out</button>
+                    </NavLink>
+                </div>
+            </Authorized>
+         </AuthorizeView>
+        <AuthorizeView Roles="Admin">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" title="Admin page">
+                        <button class="btn text-decorationd-lg-none TicketHiveYellow" @onclick="NavigateToAdmin"><i class="fa-solid fa-unlock-keyhole me-3"></i>Admin</button>
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+    </nav>
+</div>

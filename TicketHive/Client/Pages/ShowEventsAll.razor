@@ -1,0 +1,57 @@
+﻿@page "/allevents"
+@using Newtonsoft.Json;
+@using System.Diagnostics;
+@using TicketHive.Client.Services;
+@using TicketHive.Server.Enums;
+@using TicketHive.Shared.Enums;
+@using TicketHive.Shared.Models;
+@inject IEventService eventService;
+@inject AuthenticationStateProvider AuthenticationStateProvider;
+@inject NavigationManager navigationManager;
+@inject ILocalStorageService localStorage;
+
+<div class="TheBigContainer d-flex flex-column justify-content-center align-items-center">
+    <AuthorizeView>
+        <Authorized>
+                <img class="the-image" src="images/logos/yellow only logo.png" alt="Image-error">
+                <div class="d-flex flex-row justify-content-center align-items-center">
+
+                    <div class="d-flex flex-row justify-content-end p-3 mt-4">
+                        <button class="btn yellow-border yellow-hover me-2" @onclick="FilterOrderByPrice">Order by price </button>
+                        <button class="btn yellow-border yellow-hover me-2" @onclick="FilterOrderByDate">Order by date </button>
+                        <input class="yellow-border yellow-hover p-2" placeholder="Search events" type="text" @oninput="@((ChangeEventArgs e) => FilterList(e.Value.ToString()))" />
+                    </div>
+
+                </div>
+                <div class="AllCards d-flex flex-wrap row-cols-5 overflow-scroll justify-content-center scrollable-div" style="height: 600px; overflow: scroll; scroll-behavior: smooth;">
+                    @if(filteredEvents != null && filteredEvents.Any())
+                    {
+                        @foreach(var card in filteredEvents)
+                        {
+                            <div class="test d-flex flex-column flex-wrap  mx-5 mb-5 justify-content-center align-items-center rounded-2" style="background-image: url('https://localhost:7259/images/event%20images/@card.ImageUrl');">
+                                <div class="d-flex flex-wrap align-items-center justify-content-center">
+                                    <h1 class="CardTitle-name text-wrap">@card.Name</h1>
+                                </div>
+                                <div class="EventCard d-flex flex-column border-2 justify-content-center align-content-end">
+                                    <button class="TheButton rounded-1" @onclick="(() => NavigateToEvent(card.Id))">More info</button>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <h1>No events found...</h1>
+                    }               
+                </div>
+
+        </Authorized>
+        <NotAuthorized>
+            <div class="NoAccsess d-flex flex-column justify-content-center align-items-center">
+
+                <h1 class="mb-5">You must be logged in to view events.</h1>
+                <img src="https://media4.giphy.com/media/lvQe7YwEEJoaIluvs6/giphy.gif?cid=ecf05e47mnfmryod2c45btbyf02kua8tluxbdt1j8kyj3jui&rid=giphy.gif&ct=g" />
+
+            </div>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>

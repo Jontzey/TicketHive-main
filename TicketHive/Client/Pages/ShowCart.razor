@@ -1,0 +1,63 @@
+﻿@page "/cart"
+
+@using Blazored.LocalStorage;
+@using Microsoft.AspNetCore.Authorization;
+@using TicketHive.Client.Services;
+@using TicketHive.Shared.Models;
+@inject NavigationManager _navigation
+@inject ILocalStorageService _localStorage
+@inject AuthenticationStateProvider _authentication
+@inject IEventService _eventService
+@inject IUserService _userService
+@attribute [Authorize]
+
+
+<div class="ContainerForCart">
+    <div class="row">
+        @if(ShoppingCart.Count >= 1)
+        {   
+            <h4><i class="fa-solid fa-cart-shopping me-2" style="color: #fbe89c"></i>Shopping cart:</h4>
+            <table class="table table-hover border border-2 border-dark align-items-center align-content-center">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Event</th>
+                        <th scope="col">Ticket(s)</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total cost</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach(var eventModel in ShoppingCart)
+                {
+                    <tr>
+                        <th scope="row" title="Event ID">@eventModel.Id</th>
+                        <td title="Event name">@eventModel.Name</td>
+                        <td title="Your number of tickets">@eventModel.NumberOfTickets</td>
+                        <td title="Cost of one ticket">@GetTicketCost(eventModel) @GetCurrencyLabel()</td>
+                        <td title="Total cost of this event">@GetTotalCost(PricePerTicket, eventModel.NumberOfTickets) @GetCurrencyLabel()</td>
+                        <td class="justify-content-center">
+                            <button class="btn btn-outline-success" title="Add one ticket" disabled="@AreThereAvailableTickets(eventModel)" @onclick="() => IncrementTickets(eventModel)"><i class="fa-solid fa-plus text-success"></i></button>
+                            <button class="btn btn-outline-warning" title="Remove one ticket" @onclick="() => DecrementTickets(eventModel)"><i class="fa-solid fa-minus text-warning"></i></button>
+                        </td>
+                        <td><button class="btn btn-outline-danger" title="Remove all tickets" @onclick="() => RemoveEvent(eventModel)"><i class="fa-solid fa-trash text-danger"></i></button></td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <div class="row justify-content-end">
+                <button class="m-1 btn btn-outline-success" title="Proceed to checkout" @onclick="PurchaseTickets" style="width:10rem"><i class="fa-solid fa-cash-register me-2"></i>Checkout</button>
+                <button class="m-1 btn btn-outline-warning" title="Return to home" @onclick="NavigateToHome" style="width:10rem"><i class="fa-solid fa-house-chimney me-2" style="color: #fbe89c"></i></button>
+            </div>
+        }
+        else
+        {
+            <h5>No events in the shopping cart <i class="fa-solid fa-face-frown" style="color: #fbe89c"></i></h5>
+            <div class="row justify-content-start">
+                <button class="ms-3 mt-2 btn btn-outline-warning" title="Return to home" @onclick="NavigateToHome" style="width:10rem"><i class="fa-solid fa-house-chimney me-2" style="color: #fbe89c"></i></button>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿    @page
+@using System.ComponentModel.DataAnnotations;
+@using System.Reflection;
+@using TicketHive.Client.Managers;
+@using TicketHive.Server.Enums;
+@model TicketHive.Server.Areas.Identity.Pages.Account.RegisterModel
+
+<h1>Welcome! Please register providing the necessary information below:</h1>
+
+<div class="row TicketHiveTheme">
+    <form method="post">
+        <input type="text" asp-for="Username" placeholder="Username" />
+        <hr/>
+        <input type="password" asp-for="Password" placeholder="Password" />
+        <input type="password" asp-for="RepeatPassword" placeholder="Repeat password" />
+        <hr/>
+        <select asp-for="Country">
+            @foreach(var country in Enum.GetValues(typeof(Country)))
+            {
+                <option value="@country">@StringHelper.ReplaceUnderScoreWithSpace(country.ToString()!)</option>
+            }
+        </select>
+        <input class="ms-2 btn blue-border blue-hover" type="submit" value="Register" />
+    </form>
+
+    @if (!ModelState.IsValid)
+    {
+        <span class="text-danger" asp-validation-for="Username"></span>
+        <span class="text-danger" asp-validation-for="Password"></span>
+        <span class="text-danger" asp-validation-for="RepeatPassword"></span>
+        <span class="text-danger" asp-validation-for="Country"></span>
+    }
+        <span class="text-danger">@Model.ErrorMessage</span>
+</div>
+
+<style>
+    .TicketHiveTheme {
+        background-image: linear-gradient(245deg, rgb(48, 80, 118) 40%, rgb( 251, 232, 156) 70%);
+    }
+
+    .yellow-hover:hover {
+        box-shadow: 0 0 5px rgb( 251, 232, 156), 0 0 10px rgb( 251, 232, 156), 0 0 15px rgb( 251, 232, 156), 0 0 20px rgb( 251, 232, 156);
+        transform: translate(-1px);
+        background: rgb( 251, 232, 156);
+        font-weight: bold;
+    }
+
+    .yellow-border {
+        border-width: 2px;
+        border-style: solid;
+        border-color: rgb( 251, 232, 156);
+    }
+
+    .blue-border {
+        border-width: 2px;
+        border-style: solid;
+        border-color: rgb(48, 80, 118);
+    }
+
+    .blue-hover:hover {
+        box-shadow: 0 0 5px rgb(48, 80, 118), 0 0 10px rgb(48, 80, 118), 0 0 15px rgb(48, 80, 118), 0 0 20px rgb(48, 80, 118);
+        transform: translate(-1);
+        background: rgb(48, 80, 118);
+        font-weight: bold;
+    }
+</style>

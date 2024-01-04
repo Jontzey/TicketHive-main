@@ -1,0 +1,97 @@
+﻿.container {
+    box-sizing: border-box;
+    background-color: rgb(48, 80, 118 );
+    max-height:100% !important;
+    max-width: 100% !important;
+}
+
+.credentials-page {
+    width: 100%;
+}
+
+.TicketHiveTheme {
+    background-image: linear-gradient(245deg, rgb(48, 80, 118) 40%, rgb( 251, 232, 156) 70%);
+}
+
+
+.theImage {
+    width: 340px;
+    height: 300px;
+}
+
+.MainCard {
+    width: 20rem;
+    border: solid;
+    border-color: black;
+    background-image: linear-gradient(245deg, rgb( 251, 232, 156) 20%, rgb(48, 80, 118) 60%);
+}
+
+.yellow-border {
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb( 251, 232, 156);
+}
+
+.blue-border {
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(48, 80, 118);
+}
+
+.blue-hover:hover {
+    box-shadow: 0 0 5px rgb(48, 80, 118), 0 0 10px rgb(48, 80, 118), 0 0 15px rgb(48, 80, 118), 0 0 20px rgb(48, 80, 118);
+    transform: translate(-1);
+    background: rgb(48, 80, 118);
+    font-weight: bold;
+}
+
+.yellow-hover:hover {
+    box-shadow: 0 0 5px rgb( 251, 232, 156), 0 0 10px rgb( 251, 232, 156), 0 0 15px rgb( 251, 232, 156), 0 0 20px rgb( 251, 232, 156);
+    transform: translate(-1px);
+    background: rgb( 251, 232, 156);
+    font-weight: bold;
+}
+
+.yellow-hover-card:hover {
+    box-shadow: 0 0 5px rgb( 251, 232, 156), 0 0 10px rgb( 251, 232, 156), 0 0 15px rgb( 251, 232, 156), 0 0 20px rgb( 251, 232, 156);
+    transform: translate(-1px);
+    font-weight: bold;
+}
+
+.carousel-item {
+    display: none;
+    width: 100%;
+    opacity: 1;
+    transition: opacity 1s;
+    z-index: 1;
+}
+
+.carousel-inner{
+    position: relative;
+}
+
+.carousel-item.active {
+    display: block;
+    opacity: 1;
+    z-index: 2;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.carousel-control-prev {
+    left: 0;
+}
+
+.carousel-control-next {
+    right: 0;
+}
+
+.card{
+    width:12rem;
+}

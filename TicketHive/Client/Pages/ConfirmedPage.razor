@@ -1,0 +1,12 @@
+﻿@page "/confirmed"
+@using Microsoft.AspNetCore.Authorization;
+@inject NavigationManager _navigation
+@attribute [Authorize]
+
+<div class="MainContainer">
+    <div class="row text-center justify-content-center align-self-center mt-2">
+        <h4 class="text-success"><i class="fa-solid fa-star fa-beat me-2 TicketHiveYellow"></i> Success <i class="ms-2 fa-solid fa-star fa-beat TicketHiveYellow"></i></h4>
+        <h4 class="text-success mt-2">Thank you for shopping with TicketHive!</h4>
+        <button class="mt-5 btn btn-outline-warning" title="Return to home" @onclick="NavigateToHome" style="width:8rem"><i class="fa-solid fa-house-chimney me-2" style="color: #fbe89c"></i></button>
+    </div>
+</div>

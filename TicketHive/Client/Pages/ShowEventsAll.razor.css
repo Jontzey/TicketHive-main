@@ -1,0 +1,116 @@
+﻿
+MainContainer {
+    width: 95% !important;
+    height: 90% !important;
+}
+
+/*div with the button that will show up when hovered*/
+.EventCard {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: 40px;
+    /*background-color: rgba(0, 0, 0, 0.7);*/
+    color: #fff;
+    padding: 10px;
+    
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out
+}
+/*when holding over the card it will reveal content behind it*/
+.test:hover .EventCard
+{
+    opacity: 1;
+}
+/* The Div settings for all cards*/
+.test {
+    height: 300px;
+    width: 200px;
+    text-align: center;
+    word-wrap: break-word;
+   
+    border: 5px solid black;
+    margin-left: 20px;
+    background-size: cover;
+    position: relative;
+    transition: height 2s ease;
+    overflow: hidden;
+}
+/*Smooth transition when holding over current card, it will make it bigger*/
+    .test:hover {
+        height: 400px;
+        transition: height 2s ease;
+        
+    }
+/* card name */
+.CardTitle-name {
+    color: #fbe89c;
+    text-shadow: 2px 2px 2px #000000, 1px 1px 10px #000000 !important;
+    /*max-width: 200px;
+    word-break: break-word;*/
+}
+
+.AllCards {
+   /* width: 100%;*/
+    position: relative;
+    
+    max-height:630px;
+    overflow-x: scroll;
+    white-space: nowrap;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+}
+.AllCards::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
+.TheButton {
+    background-color: #fbe89c;
+    
+}
+
+.the-image {
+    width: 220px !important;
+    height: 200px !important;
+    box-shadow: 0 0 5px rgb( 251, 232, 156), 0 0 10px rgb( 251, 232, 156), 0 0 15px rgb( 251, 232, 156), 0 0 20px rgb( 251, 232, 156);
+}
+
+.yellow-border {
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb( 251, 232, 156);
+}
+
+.yellow-hover:hover {
+    box-shadow: 0 0 5px rgb( 251, 232, 156), 0 0 10px rgb( 251, 232, 156), 0 0 15px rgb( 251, 232, 156), 0 0 20px rgb( 251, 232, 156);
+    transform: translate(-1px);
+    background: rgb( 251, 232, 156);
+    font-weight: bold;
+}
+
+.scrollable-div {
+    height: 200px;
+    overflow: auto;
+}
+
+    .scrollable-div::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .scrollable-div::-webkit-scrollbar-thumb {
+        background-color: red;
+        border-radius: 10px;
+    }
+
+.TheBigContainer {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.TestEnums {
+    margin-top: 40px;
+    margin-right: 20px;
+    margin-left: 25px;
+}

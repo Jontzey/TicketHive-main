@@ -1,0 +1,50 @@
+﻿@page "/checkout"
+
+@using Blazored.LocalStorage
+@using Microsoft.AspNetCore.Authorization;
+@using TicketHive.Client.Services;
+@using TicketHive.Shared.Models
+@inject ILocalStorageService _storage
+@inject IEventService _eventService
+@inject IUserService _userService
+@inject NavigationManager _navigation
+@inject AuthenticationStateProvider _authentication
+@attribute [Authorize]
+
+<div class="MainContainer">
+    <div class="row">
+        <h4 class="TicketHiveYellow"><i class="fa-solid fa-cash-register me-2"></i>Checkout</h4>
+        <table class="table border border-2 border-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Event</th>
+                    <th scope="col">No. of tickets</th>
+                    <th scope="col">Costs</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach(var eventModel in MyTickets)
+            {
+                <tr>
+                    <th scope="row">@eventModel.Id</th>
+                    <td>@eventModel.Name</td>
+                    <td>@eventModel.NumberOfTickets</td>
+                    <td>@GetTotalCost(GetTicketCost(eventModel), eventModel.NumberOfTickets) @GetCurrencyLabel()</td>
+                </tr>
+            }
+               <tr>
+                   <th scope="row">Total cost:</th>
+                   <td colspan="2"></td>
+                   <td>@FinalCost @GetCurrencyLabel()</td>
+               </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <button class="ms-3 mt-2 btn btn-outline-success" title="Confirm purchase and receive your tickets" @onclick="ConfirmPurchase" style="width:10rem"><i class="fa-solid fa-check me-2"></i>Confirm</button>
+        <button class="ms-3 mt-2 btn btn-outline-warning" title="Return to shopping cart" @onclick="ReturnToShoppingCart" style="width:10rem"><i class="fa-solid fa-cart-shopping me-2"</i>Shopping Cart</button>
+        <button class="ms-3 mt-2 btn btn-outline-warning" title="Go to events and continue shopping" @onclick="NavigateToEvents" style="width:10rem"><i class="fa-solid fa-ticket me-2"</i>Events</button>
+    </div>
+</div>
+

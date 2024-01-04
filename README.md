@@ -1,2 +1,2 @@
 # TicketHive
- a Blazor project created with fellow students
+ a Blazor webassembly project created with fellow students
